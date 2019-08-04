@@ -1,0 +1,46 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>dispool</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <!-- <hightlight.js> -->
+        <link rel="stylesheet" href="./node_modules/highlight.js/styles/horizon.css">
+        <script src="./node_modules/highlight.js/lib/highlight.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
+    <!-- </hightlight.js> -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel='stylesheet' type='text/css' media='screen' href='./googleSans.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='./style.css'>
+    <script>
+        if (typeof module === 'object') {
+            window.module = module;
+            module = undefined;
+        }
+    </script>
+    <script src='https://cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script>
+        if (window.module) module = window.module;
+    </script>
+    <script src="./webscript.js"></script>
+</head>
+
+<body>
+    <div class="servers posabs"></div>
+    <div class="sidebar posabs">
+        <div class="currentguild posabs"></div>
+        <div class="channellist"></div>
+        <!-- <div class="voicechannelcontrols posabs"></div> -->
+    </div>
+    <div class="chat posabs">
+        <div class="channelbar posabs"></div>
+        <div class="messages posabs"></div>
+        <div class="typingbar posabs">
+            <textarea placeholder="Type a message..." class="message"></textarea>
+        </div>
+    </div>
+</body>
+
+</html>

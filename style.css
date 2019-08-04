@@ -1,0 +1,301 @@
+html,
+body {
+    background: #1c1e26;
+    margin: 0;
+    color: #fff;
+    font-family: 'Google Sans';
+    overflow: hidden;
+
+    --dark-1: #1C1E26;
+    --dark-2: #232530;
+    --dark-3: #2E303E;
+    --dark-3-5: #464961;
+    --dark-4: #6C6F93;
+
+    --red: #F43E5C;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal !important;
+    margin: 0
+}
+
+a {
+    font-family: 'Google Sans Bold';
+    color: var(--red);
+}
+
+.titlebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    -webkit-app-region: no-drag;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+.channelbar,
+.currentguild {
+    -webkit-app-region: drag;
+}
+
+.posabs {
+    position: absolute;
+}
+
+.servers {
+    height: 100vh;
+    width: 80px;
+    top: 0;
+    left: 0;
+    background: var(--dark-1);
+}
+
+.sidebar {
+    height: 100vh;
+    width: 300px;
+    top: 0;
+    left: 80px;
+}
+
+.chat {
+    height: 100vh;
+    width: calc(100vw - 380px);
+    top: 0;
+    left: 380px;
+}
+
+.channelbar {
+    background: var(--dark-1);
+    width: calc(100vw - 518px);
+    height: 60px;
+    top: 0;
+}
+
+.messages {
+    background: var(--dark-3);
+    width: calc(100vw - 380px);
+    height: calc(100vh - 120px);
+    bottom: calc(60px - (100vh));
+    overflow-y: scroll;
+}
+
+.typingbar {
+    background: var(--dark-2);
+    width: calc(100vw - 380px);
+    height: 60px;
+    bottom: -60px;
+}
+
+.currentguild {
+    background: var(--dark-1);
+    width: 300px;
+    height: 60px;
+    top: 0;
+}
+
+.voicechannelcontrols {
+    background: var(--dark-1);
+    width: 300px;
+    height: 60px;
+    bottom: 0;
+}
+
+.servers {
+    overflow-y: scroll;
+}
+
+.server {
+    border-radius: 30px;
+    width: 60px;
+    height: 60px;
+    margin: 15px 10px;
+    transition: .3s;
+}
+
+.server:hover {
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.server:active {
+    border-radius: 5px !important;
+    transform: scale(.9);
+}
+
+.server.active {
+    border-radius: 15px;
+}
+
+.currentguild * {
+    user-select: none;
+    position: relative;
+}
+
+.currentguild .guildicon {
+    top: 18px;
+    left: 16px;
+}
+
+.currentguild .guildname {
+    top: -14px;
+    left: 53px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 230px;
+    font-family: 'Google Sans Bold';
+}
+
+.channelname {
+    user-select: none;
+    position: relative;
+    top: 15px;
+    left: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: calc(100vw - 550px);
+}
+
+.channellist {
+    margin-top: 160px;
+    opacity: 0;
+    overflow-y: scroll;
+    height: calc(100% - 60px);
+    background: var(--dark-2);
+}
+
+.channel {
+    background: var(--dark-3);
+    width: calc(100% - 40px);
+    margin: 20px;
+    height: 40px;
+    border-radius: 5px;
+    transition: .3s;
+}
+
+.channel:hover {
+    border-radius: 10px;
+    background: var(--dark-3-5);
+    cursor: pointer;
+    transition: .3s;
+}
+
+.channel:active {
+    border-radius: 50px;
+    transform: scale(.9);
+    transition: .15s;
+}
+
+.channel.active {
+    background: var(--dark-4);
+}
+
+.channel .type {
+    margin: 8px;
+    user-select: none;
+}
+
+.channel .name {
+    position: relative;
+    top: -31px;
+    left: 40px;
+    user-select: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 210px;
+    display: block;
+}
+
+.seperator .name {
+    margin-left: 20px;
+    font-size: 12pt;
+    font-family: 'Google Sans Bold';
+    color: #fffd;
+    user-select: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 260px;
+    display: block;
+}
+
+.seperator {
+    margin-bottom: -10px;
+    margin-top: 30px;
+}
+
+.typingbar .message {
+    background-color: var(--dark-3);
+    color: #fff;
+    border: 0;
+    font-family: 'Google Sans';
+    font-size: 14pt;
+    resize: none;
+    height: 30px;
+    width: calc(100% - 30px);
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+*:enabled,
+*:active,
+*:focus {
+    outline: none;
+}
+
+div.message {
+    width: calc(100% - 70px);
+    padding: 10px;
+    border-radius: 10px;
+    background: var(--dark-2);
+    /* box-shadow: 0px 6px 20px -10px var(--dark-1); */
+    margin: 10px 25px;
+    overflow: scroll;
+}
+
+div.message:last-child {
+    margin-bottom: 25px
+}
+
+.message .author {
+    font-family: 'Google Sans Bold';
+    font-size: 16px;
+}
+
+.message .profile {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url('https://cdn.discordapp.com/attachments/402862138894581760/606430607416754186/avatar.png');
+    background-size: contain;
+    border-radius: 8px;
+}
+
+code.hljs {
+    border-radius: 5px;
+    font-family: 'Fira Code Medium', monospace;
+}
+
+.content code {
+    font-family: 'Fira Code Medium', monospace;
+    background: var(--dark-1);
+    color: #bbbbbb;
+    padding: 2px 5px;
+    border-radius: 5px;
+}
+
+.d-mention {
+    background-color: #08f3;
+    padding: 0 3px;
+    border-radius: 3px;
+}
+
+img, video {
+    max-width: 100%;
+}

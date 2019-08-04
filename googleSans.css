@@ -1,0 +1,47 @@
+@font-face {
+    font-family: 'Google Sans';
+    src:
+    url('./fonts/woff2/GoogleSans-Regular.woff2') format('woff2'),
+    url('./fonts/woff/GoogleSans-Regular.woff') format('woff'),
+    url('./fonts/ttf/GoogleSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Google Sans Italic';
+    src:
+    url('./fonts/woff2/GoogleSans-Italic.woff2') format('woff2'),
+    url('./fonts/woff/GoogleSans-Italic.woff') format('woff'),
+    url('./fonts/ttf/GoogleSans-Italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Google Sans Medium';
+    src:
+    url('./fonts/woff2/GoogleSans-Medium.woff2') format('woff2'),
+    url('./fonts/woff/GoogleSans-Medium.woff') format('woff'),
+    url('./fonts/ttf/GoogleSans-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Google Sans Medium Italic';
+    src:
+    url('./fonts/woff2/GoogleSans-MediumItalic.woff2') format('woff2'),
+    url('./fonts/woff/GoogleSans-MediumItalic.woff') format('woff'),
+    url('./fonts/ttf/GoogleSans-MediumItalic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Google Sans Bold';
+    src:
+    url('./fonts/woff2/GoogleSans-Bold.woff2') format('woff2'),
+    url('./fonts/woff/GoogleSans-Bold.woff') format('woff'),
+    url('./fonts/ttf/GoogleSans-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Google Sans Bold Italic';
+    src:
+    url('./fonts/woff2/GoogleSans-BoldItalic.woff2') format('woff2'),
+    url('./fonts/woff/GoogleSans-BoldItalic.woff') format('woff'),
+    url('./fonts/ttf/GoogleSans-BoldItalic.ttf') format('truetype');
+}
