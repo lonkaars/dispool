@@ -4,7 +4,7 @@ var config = require('./config.js');
 client.login(config.token);
 var currentGuild, currentChannel = null;
 var status = "";
-var statuscard;
+var statuscard, currentTheme;
 const toHTML = require('discord-markdown').toHTML;
 
 // Startup
@@ -30,12 +30,21 @@ client.on('ready', () => {
     }, 200);
 })
 
+function loadTheme() {
+    currentTheme = config.themes.find(c => c.name == config.currentTheme);
+    for(var key in currentTheme.customColors){
+        $('body').css(`--${key.replace(/\./g, "-")}`, currentTheme.customColors[key])
+    }
+    $('#customCSS').text(currentTheme.customCSS)
+}
+
 // Add title bar
 document.addEventListener("DOMContentLoaded", function () {
+    loadTheme()
     const electronTitlebarWindows = require('electron-titlebar-windows');
     const titlebar = new electronTitlebarWindows({
-        color: "#d7dae0",
-        backgroundColor: "#1c1e26",
+        color: currentTheme.windowFeatures["controls.color"],
+        backgroundColor: currentTheme.windowFeatures["controls.background"],
         draggable: false
     })
     titlebar.appendTo();
@@ -210,7 +219,7 @@ function pushmessage(message, pop = false) {
     try {
         color = message.member.displayHexColor
     } catch {
-        color = '#fff'
+        color = currentTheme.windowFeatures["message.norolecolor"]
     }
     var attachments = '';
     if (message.attachments.array().length != 0 && message.attachments.array()[0].url.match(/.+(png|jpg|jpeg|gif)/g)) {
@@ -252,22 +261,17 @@ client.on('message', message => {
 })
 
 $('img').on('load', () => {
-    console.log(`Image loaded`)
     overflowBottom()
 })
 
 function switchStatus(status) {
     if (status == "online") {
-        $('.controls .user .profile .status').css('background', '#43b581')
+        $('.controls .user .profile .status').css('background', 'var(--status-online)')
     } else if (status == "idle") {
-        $('.controls .user .profile .status').css('background', '#faa61a')
+        $('.controls .user .profile .status').css('background', 'var(--status-idle)')
     } else if (status == "dnd") {
-        $('.controls .user .profile .status').css('background', '#f04747')
+        $('.controls .user .profile .status').css('background', 'var(--status-dnd)')
     } else if (status == "invisible") {
-        $('.controls .user .profile .status').css('background', '#494b51')
+        $('.controls .user .profile .status').css('background', 'var(--status-offline)')
     }
 }
-
-/* setInterval(() => {
-    console.log(heigtlog == true ? $('div.messages')[0].scrollHeight : '')
-}, 10); */

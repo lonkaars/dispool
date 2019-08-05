@@ -1,19 +1,10 @@
 html,
 body {
-    background: #1c1e26;
+    background: var(--body-background);
     margin: 0;
-    color: #fff;
+    color: var(--body-color);
     font-family: 'Google Sans';
     overflow: hidden;
-
-    --dark-1: #1C1E26;
-    --dark-2: #232530;
-    --dark-3: #2E303E;
-    --dark-3-5: #464961;
-    --dark-4: #6C6F93;
-    --dark-5: #1A1C23;
-
-    --red: #F43E5C;
 }
 
 h1,
@@ -28,7 +19,7 @@ h6 {
 
 a {
     font-family: 'Google Sans Bold';
-    color: var(--red);
+    color: var(--url-color);
 }
 
 .titlebar {
@@ -56,7 +47,7 @@ a {
     width: 80px;
     top: 0;
     left: 0;
-    background: var(--dark-5);
+    background: var(--serverlist-background);
 }
 
 .sidebar {
@@ -74,14 +65,14 @@ a {
 }
 
 .channelbar {
-    background: var(--dark-1);
+    background: var(--channel-headerbar-background);
     width: calc(100vw - 518px);
     height: 60px;
     top: 0;
 }
 
 .messages {
-    background: var(--dark-3);
+    background: var(--channel-background);
     width: calc(100vw - 380px);
     height: calc(100vh - 120px);
     bottom: calc(60px - (100vh));
@@ -89,21 +80,21 @@ a {
 }
 
 .typingbar {
-    background: var(--dark-2);
+    background: var(--channel-messagebarcontainer-background);
     width: calc(100vw - 380px);
     height: 60px;
     bottom: -60px;
 }
 
 .currentguild {
-    background: var(--dark-1);
+    background: var(--guildbar-header-background);
     width: 300px;
     height: 60px;
     top: 0;
 }
 
 .controls {
-    background: var(--dark-1);
+    background: var(--userbar-background);
     width: 300px;
     height: 60px;
     bottom: 0;
@@ -135,16 +126,15 @@ a {
     width: 10px;
     height: 10px;
     border-radius: 99px;
-    background: #43b581;
+    background: var(--status-online);
     top: 10px;
     left: 38px;
-    border: 3px solid var(--dark-1);
+    border: 3px solid var(--userbar-background);
     transition: .2s;
 }
 
 .controls .user .profile .username {
     width: 180px;
-    color: #fff;
     top: 11px;
     left: 60px;
     font-size: 20px;
@@ -156,7 +146,7 @@ a {
 
 .controls .user .profile .discriminator {
     width: 100px;
-    color: #fff8;
+    color: var(--user-discriminator);
     top: 33px;
     left: 60px;
     font-size: 14px;
@@ -181,7 +171,7 @@ a {
 
 .statuscard {
     position: absolute;
-    background: var(--dark-5);
+    background: var(--statuscard-background);
     width: 250px;
     height: 350px;
     bottom: 20px;
@@ -189,7 +179,7 @@ a {
     visibility: hidden;
     left: 25px;
     border-radius: 10px;
-    box-shadow: 0px 6px 25px -8px #0008;
+    box-shadow: 0px 6px 25px -8px var(--statuscard-shadowcolor);
     z-index: 50;
 }
 
@@ -215,7 +205,7 @@ ul {
     position: absolute;
     font-size: 14px;
     margin-left: 30px;
-    color: #fff9;
+    color: var(--statuscard-description-color);
     user-select: none;
 }
 
@@ -231,14 +221,14 @@ ul {
 
 .statuscard ul div {
     height: 70px;
-    background: var(--dark-2);
+    background: var(--statuscard-option-background);
     margin-top: 10px;
     cursor: pointer;
     transition: .15s;
 }
 
 .statuscard ul div:hover {
-    background: var(--dark-3);
+    background: var(--statuscard-option-background-hover);
 }
 
 .statuscard ul div:active {
@@ -251,16 +241,16 @@ ul {
 }
 
 .statuscard ul .online .bubble {
-    background: #43b581;
+    background: var(--status-online);
 }
 .statuscard ul .away .bubble {
-    background: #faa61a;
+    background: var(--status-idle);
 }
 .statuscard ul .dnd .bubble {
-    background: #f04747;
+    background: var(--status-dnd);
 }
 .statuscard ul .invisible .bubble {
-    background: #fff3;
+    background: var(--status-offline);
 }
 
 .shade {
@@ -276,7 +266,7 @@ ul {
 
 .shade.show {
     height: 100vh;
-    background: #0003;
+    background: var(--shade-background);
 }
 
 .servers {
@@ -341,11 +331,11 @@ ul {
     opacity: 0;
     overflow-y: scroll;
     height: calc(100% - 60px);
-    background: var(--dark-2);
+    background: var(--guildbar-background);
 }
 
 .channel {
-    background: var(--dark-3);
+    background: var(--guildbar-channel-background);
     width: calc(100% - 40px);
     margin: 20px;
     height: 40px;
@@ -355,7 +345,7 @@ ul {
 
 .channel:hover {
     border-radius: 10px;
-    background: var(--dark-3-5);
+    background: var(--guildbar-channel-background-hover);
     cursor: pointer;
     transition: .3s;
 }
@@ -391,7 +381,7 @@ ul {
     margin-left: 20px;
     font-size: 12pt;
     font-family: 'Google Sans Bold';
-    color: #fffd;
+    color: var(--channels-seperators-color);
     user-select: none;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -406,8 +396,8 @@ ul {
 }
 
 .typingbar .message {
-    background-color: var(--dark-3);
-    color: #fff;
+    background-color: var(--channel-messagebar-background);
+    color: var(--body-color);
     border: 0;
     font-family: 'Google Sans';
     font-size: 14pt;
@@ -429,8 +419,7 @@ div.message {
     width: calc(100% - 70px);
     padding: 10px;
     border-radius: 10px;
-    background: var(--dark-2);
-    /* box-shadow: 0px 6px 20px -10px var(--dark-1); */
+    background: var(--message-background);
     margin: 10px 25px;
     overflow: scroll;
 }
@@ -460,14 +449,14 @@ code.hljs {
 
 .content code {
     font-family: 'Fira Code Medium', monospace;
-    background: var(--dark-1);
-    color: #bbbbbb;
+    background: var(--code-background);
+    color: var(--code-color);
     padding: 2px 5px;
     border-radius: 5px;
 }
 
 .d-mention {
-    background-color: #08f3;
+    background-color: var(--mention-background);
     padding: 0 3px;
     border-radius: 3px;
 }

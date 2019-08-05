@@ -34,3 +34,5 @@ If you want to package the app into an executable, run `npm run-script build` af
 - Add more messages when scrolling to top
 - Maybe add an overlay
 - Implement other important native Discord features
+- Youtube embeds
+- Open Youtube URL's in native browser
