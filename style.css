@@ -11,11 +11,17 @@ body {
     --dark-3: #2E303E;
     --dark-3-5: #464961;
     --dark-4: #6C6F93;
+    --dark-5: #1A1C23;
 
     --red: #F43E5C;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: normal !important;
     margin: 0
 }
@@ -50,7 +56,7 @@ a {
     width: 80px;
     top: 0;
     left: 0;
-    background: var(--dark-1);
+    background: var(--dark-5);
 }
 
 .sidebar {
@@ -96,11 +102,181 @@ a {
     top: 0;
 }
 
-.voicechannelcontrols {
+.controls {
     background: var(--dark-1);
     width: 300px;
     height: 60px;
     bottom: 0;
+}
+
+.controls .settings {
+    position: absolute;
+    right: 0;
+    display: inline-block;
+    width: 60px;
+    cursor: pointer;
+}
+
+.controls .user .profile * {
+    position: absolute;
+    user-select: none;
+}
+
+.controls .user .profile .picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 99px;
+    top: 10px;
+    left: 10px;
+    background-size: contain;
+}
+
+.controls .user .profile .status {
+    width: 10px;
+    height: 10px;
+    border-radius: 99px;
+    background: #43b581;
+    top: 10px;
+    left: 38px;
+    border: 3px solid var(--dark-1);
+    transition: .2s;
+}
+
+.controls .user .profile .username {
+    width: 180px;
+    color: #fff;
+    top: 11px;
+    left: 60px;
+    font-size: 20px;
+    font-family: 'Google Sans Medium';
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.controls .user .profile .discriminator {
+    width: 100px;
+    color: #fff8;
+    top: 33px;
+    left: 60px;
+    font-size: 14px;
+    font-family: 'Google Sans Italic'
+}
+
+.controls .user {
+    width: 200px;
+    height: 60px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.settings i {
+    position: absolute;
+    font-size: 24px;
+    user-select: none;
+    transform: translate(-50%, -50%);
+    top: 30px;
+    left: 30px;
+}
+
+.statuscard {
+    position: absolute;
+    background: var(--dark-5);
+    width: 250px;
+    height: 350px;
+    bottom: 20px;
+    opacity: 0;
+    visibility: hidden;
+    left: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 6px 25px -8px #0008;
+    z-index: 50;
+}
+
+.statuscard h1 {
+    margin: 10px;
+    font-family: 'Google Sans Bold';
+    text-align: center;
+    user-select: none;
+}
+
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+.statuscard ul div h2 {
+    display: inline-block;
+    font-size: 18px;
+    user-select: none;
+}
+
+.statuscard ul div h3 {
+    position: absolute;
+    font-size: 14px;
+    margin-left: 30px;
+    color: #fff9;
+    user-select: none;
+}
+
+.statuscard ul div .bubble {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    border-radius: 8px;
+    margin-left: 10px;
+    margin-top: 10px;
+    user-select: none;
+}
+
+.statuscard ul div {
+    height: 70px;
+    background: var(--dark-2);
+    margin-top: 10px;
+    cursor: pointer;
+    transition: .15s;
+}
+
+.statuscard ul div:hover {
+    background: var(--dark-3);
+}
+
+.statuscard ul div:active {
+    transform: scale(.95)
+}
+
+.statuscard ul div.online,
+.statuscard ul div.invisible {
+    height: 53px;
+}
+
+.statuscard ul .online .bubble {
+    background: #43b581;
+}
+.statuscard ul .away .bubble {
+    background: #faa61a;
+}
+.statuscard ul .dnd .bubble {
+    background: #f04747;
+}
+.statuscard ul .invisible .bubble {
+    background: #fff3;
+}
+
+.shade {
+    position: absolute;
+    width: 100vw;
+    height: 0;
+    bottom: 0;
+    left: 0;
+    background: #0000;
+    z-index: 49;
+    transition: .3s;
+}
+
+.shade.show {
+    height: 100vh;
+    background: #0003;
 }
 
 .servers {
@@ -296,6 +472,7 @@ code.hljs {
     border-radius: 3px;
 }
 
-img, video {
+img,
+video {
     max-width: 100%;
 }

@@ -6,9 +6,11 @@
     <title>dispool</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!-- <hightlight.js> -->
-        <link rel="stylesheet" href="./node_modules/highlight.js/styles/horizon.css">
-        <script src="./node_modules/highlight.js/lib/highlight.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script>
+    <link rel="stylesheet" href="./node_modules/highlight.js/styles/horizon.css">
+    <script src="./node_modules/highlight.js/lib/highlight.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
     <!-- </hightlight.js> -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel='stylesheet' type='text/css' media='screen' href='./googleSans.css'>
@@ -28,11 +30,49 @@
 </head>
 
 <body>
+    <div class="shade" onclick="shade()"></div>
     <div class="servers posabs"></div>
     <div class="sidebar posabs">
         <div class="currentguild posabs"></div>
         <div class="channellist"></div>
-        <!-- <div class="voicechannelcontrols posabs"></div> -->
+        <div class="statuscard">
+            <h1>Status</h1>
+            <ul>
+                <div class="online" onclick="clientStatusSwitch('online')">
+                    <div class="bubble"></div>
+                    <h2 class="name">Online</h2>
+                    <h3 class="expl">You'll appear online like normal</h3>
+                </div>
+                <div class="away" onclick="clientStatusSwitch('idle')">
+                    <div class="bubble"></div>
+                    <h2 class="name">Away</h2>
+                    <h3 class="expl">You'll still be online, but your friends will probably ping you less</h3>
+                </div>
+                <div class="dnd" onclick="clientStatusSwitch('dnd')">
+                    <div class="bubble"></div>
+                    <h2 class="name">Do not disturb</h2>
+                    <h3 class="expl">You're still online, but you won't<br>get notifications</h3>
+                </div>
+                <div class="invisible" onclick="clientStatusSwitch('offline')">
+                    <div class="bubble"></div>
+                    <h2 class="name">Invisible</h2>
+                    <h3 class="expl">You appear like you're offline</h3>
+                </div>
+            </ul>
+        </div>
+        <div class="controls posabs">
+            <div class="user" onclick="user()">
+                <div class="profile">
+                    <div class="picture"></div>
+                    <div class="status"></div>
+                    <div class="username"></div>
+                    <div class="discriminator"></div>
+                </div>
+            </div>
+            <div class="settings">
+                <i class="material-icons">settings</i>
+            </div>
+        </div>
     </div>
     <div class="chat posabs">
         <div class="channelbar posabs"></div>

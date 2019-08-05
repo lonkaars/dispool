@@ -6,7 +6,7 @@
 	"author": "Loekaars",
 	"scripts": {
 		"start": "electron .",
-        "build": "rm -rf build/ && mkdir build && cd build && electron-packager ../ ../index.js --platform=win32 && cd .."
+		"build": "rm -rf build/ && mkdir build && cd build && electron-packager ../ ../index.js --platform=win32 && cd .."
 	},
 	"dependencies": {
 		"discord-markdown": "^2.1.2",

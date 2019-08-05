@@ -31,5 +31,6 @@ If you want to package the app into an executable, run `npm run-script build` af
 - See channels that aren't in a category
 - Fix scrolling behavior in channels
 - Add scroll to bottom banner in channels
+- Add more messages when scrolling to top
 - Maybe add an overlay
 - Implement other important native Discord features

@@ -3,16 +3,31 @@ var client = new Discord.Client();
 var config = require('./config.js');
 client.login(config.token);
 var currentGuild, currentChannel = null;
+var status = "";
+var statuscard;
 const toHTML = require('discord-markdown').toHTML;
 
-// Fill server list with servers
+// Startup
 client.on('ready', () => {
+    // Fill serverlist
     var servers = ""
     var guilds = client.guilds.array()
     for (let i = 0; i < guilds.length; i++) {
         servers += `<div ${config.showServerTooltips ? "title=\"" + guilds[i].name + "\"" : ""} class="server server-${guilds[i].id}" style="background: url('${guilds[i].iconURL}'); background-size: contain" onclick="switchGuild(${guilds[i].id})"></div>\n`
     }
     $('.servers').append(servers)
+
+    // Bottom-left profile picture
+    $('.controls .user .profile .picture').css('background', `url('${client.user.avatarURL.replace(/\?size\=(\d+)/g, "?size=40")}')`)
+
+    // Username and discriminator
+    $('.controls .user .profile .username').text(client.user.username)
+    $('.controls .user .profile .discriminator').text(`#${client.user.discriminator}`)
+
+    setTimeout(() => {
+        status = client.user.presence.status
+        switchStatus(status)
+    }, 200);
 })
 
 // Add title bar
@@ -138,6 +153,44 @@ function time(date) {
     return `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`
 }
 
+function statusCard(showHide){
+    if(showHide == true){
+        $('.statuscard').css('visibility', 'visible')
+    }
+    anime({
+        targets: '.statuscard',
+        bottom: showHide ? ['20px', "85px"] : ['85px', "20px"],
+        easing: showHide ? 'easeOutExpo' : 'easeInExpo',
+        opacity: showHide ? [0, 1] : [1, 0],
+        duration: showHide ? 600 : 300,
+        complete: () => {
+            if(showHide == false){
+                $('.statuscard').css('visibility', 'hidden')
+            }
+        }
+    })
+}
+
+function shade() {
+    if(statuscard){
+        statusCard(false)
+        $('.shade').removeClass('show')
+    }
+}
+
+function user() {
+    statusCard(true)
+    $('.shade').addClass('show')
+    statuscard = true
+}
+
+function clientStatusSwitch(to) {
+    status = to;
+    client.user.setStatus(to);
+    shade();
+    switchStatus(status)
+}
+
 function pushmessage(message, pop = false) {
     var text = toHTML(message.content, {
         embed: true,
@@ -160,9 +213,9 @@ function pushmessage(message, pop = false) {
         color = '#fff'
     }
     var attachments = '';
-    if(message.attachments.array().length != 0 && message.attachments.array()[0].url.match(/.+(png|jpg|jpeg|gif)/g)){
+    if (message.attachments.array().length != 0 && message.attachments.array()[0].url.match(/.+(png|jpg|jpeg|gif)/g)) {
         attachments = `<br><img src="${attachments = message.attachments.array()[0].url}">`
-    } else if (message.attachments.array().length != 0 && message.attachments.array()[0].url.match(/.+(mp4|webm|mov)/g)){
+    } else if (message.attachments.array().length != 0 && message.attachments.array()[0].url.match(/.+(mp4|webm|mov)/g)) {
         attachments = `<br><video controls><source src="${attachments = message.attachments.array()[0].url}" type="video/${message.attachments.array()[0].url.match(/(mp4|webm|mov)$/g)[0]}"></video>`
     }
     var send = `<div class="message message-${message.id}">\n<div class="profile" style="background: url('${message.author.avatarURL}'); background-size: contain;"></div>\n<span class="author"><b style="color: ${color}">${message.author.username}</b>@${time(message.createdAt)}</span>\n<span class="content">${text.replace(/\n/g, '<br>')}</span>${attachments}</div>`
@@ -202,6 +255,18 @@ $('img').on('load', () => {
     console.log(`Image loaded`)
     overflowBottom()
 })
+
+function switchStatus(status) {
+    if (status == "online") {
+        $('.controls .user .profile .status').css('background', '#43b581')
+    } else if (status == "idle") {
+        $('.controls .user .profile .status').css('background', '#faa61a')
+    } else if (status == "dnd") {
+        $('.controls .user .profile .status').css('background', '#f04747')
+    } else if (status == "invisible") {
+        $('.controls .user .profile .status').css('background', '#494b51')
+    }
+}
 
 /* setInterval(() => {
     console.log(heigtlog == true ? $('div.messages')[0].scrollHeight : '')
