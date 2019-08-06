@@ -318,7 +318,7 @@ ul {
 .channelname {
     user-select: none;
     position: relative;
-    top: 15px;
+    top: 12px;
     left: 16px;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -357,7 +357,8 @@ ul {
 }
 
 .channel.active {
-    background: var(--dark-4);
+    color: var(--channel-active-color);
+    background: var(--channel-active-background);
 }
 
 .channel .type {

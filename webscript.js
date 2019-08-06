@@ -111,9 +111,9 @@ function switchGuild(id) {
 
     for (let i = 0; i < sorted.length; i++) {
         if (sorted[i].type == "voice") {
-            html += `<div class="channel" onclick="switchChannel(${sorted[i].id})">\n<i class="material-icons type">volume_up</i>\n<span class="name">${sorted[i].name}</span>\n</div>`
+            html += `<div class="channel voice channel-${sorted[i].id}" onclick="switchChannel(${sorted[i].id})">\n<i class="material-icons type">volume_up</i>\n<span class="name">${sorted[i].name}</span>\n</div>`
         } else if (sorted[i].type == "text") {
-            html += `<div class="channel" onclick="switchChannel(${sorted[i].id})">\n<i class="material-icons type">format_align_left</i>\n<span class="name">${sorted[i].name}</span>\n</div>`
+            html += `<div class="channel text channel-${sorted[i].id}" onclick="switchChannel(${sorted[i].id})">\n<i class="material-icons type">format_align_left</i>\n<span class="name">${sorted[i].name}</span>\n</div>`
         } else if (sorted[i].type == "category") {
             html += `<div class="seperator">\n<h2 class="name">${sorted[i].name}</h2>\n</div>`
         }
@@ -137,7 +137,11 @@ function switchChannel(id) {
         })
     }
     currentChannel = client.channels.find(c => c.id == id);
-    $('.channelbar').html(`<h2 class="channelname">${currentChannel.name}</h2>`)
+    $('.channelbar').html(`<h2 class="channelname">${currentChannel.name}</h2>`);
+
+    // Set active channel
+    $('.channel').removeClass('active');
+    $(`.channel-${currentChannel.id}`).addClass('active');
 
     // fetch old messages
     $('.messages').html('')
@@ -211,7 +215,7 @@ function pushmessage(message, pop = false) {
             channel: u => `#${client.channels.find(c => c.id == u.id).name}`,
             emoji: u => {
                 var em = message.guild.emojis.find(e => e.id == u.id)
-                return `<div ${em ? 'style="width:24px; height:24px; background: url(' + em.url +'); background-size: cover; display: inline-block;"' : 'style="display: inline-block;"'}>${em ? "" : "&lt;unresolvable emoji&gt;"}</div>`
+                return `<div ${em ? 'style="width:24px; height:24px; background: url(' + em.url +'); background-size: cover; display: inline-block;"' : 'style="display: inline-block;"'}>${em ? "" : config.showUnresolvableEmoji ? "&lt;unresolvable emoji&gt;" : ""}</div>`
             }
         }
     })
