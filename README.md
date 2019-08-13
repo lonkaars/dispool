@@ -15,11 +15,12 @@ You can find your token by accessing <https://discordapp.com/channels/@me,> open
 > **Note: This is a work in progress, you can currently only use dispool for simple text chatting**
 
 1. `git clone https://github.com/lonkaars/dispool`
-2. `cd dispool`
+2. `cd dispool/src`
 3. `npm i`
-4. `npm start`
+4. `mv config.example.js config.js`
+5. `npm start`
 
-If you want to package the app into an executable, run `npm run-script build` after installing electon and electron-builder with npm.
+I need help with packaging the app
 
 ### To-do
 

@@ -5,8 +5,7 @@
 	"license": "MIT",
 	"author": "Loekaars",
 	"scripts": {
-		"start": "electron .",
-		"build": "rm -rf build/ && mkdir build && cd build && electron-packager ../ ../index.js --platform=win32 && cd .."
+		"start": "electron ."
 	},
 	"dependencies": {
 		"discord-markdown": "^2.1.2",
@@ -22,7 +21,6 @@
 		"highlight.js": "^9.15.9"
 	},
 	"devDependencies": {
-		"electron": "^5.0.4",
-		"electron-builder": "^20.43.0"
+		"electron": "^5.0.4"
 	}
 }

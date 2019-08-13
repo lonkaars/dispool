@@ -6,8 +6,9 @@ var currentGuild, currentChannel = null;
 var status = "";
 var statuscard, currentTheme;
 const toHTML = require('discord-markdown').toHTML;
+var commander = require('./commander/main.js');
 
-// Startup
+// Discord client ready
 client.on('ready', () => {
     // Fill serverlist
     var servers = ""
@@ -24,29 +25,43 @@ client.on('ready', () => {
     $('.controls .user .profile .username').text(client.user.username)
     $('.controls .user .profile .discriminator').text(`#${client.user.discriminator}`)
 
+    // Set status UI
     setTimeout(() => {
         status = client.user.presence.status
         switchStatus(status)
     }, 200);
+
+    //! DEV
+    // $('.shade').addClass('show');
 })
 
-function loadTheme() {
-    currentTheme = config.themes.find(c => c.name == config.currentTheme);
-    for(var key in currentTheme.customColors){
-        $('body').css(`--${key.replace(/\./g, "-")}`, currentTheme.customColors[key])
+// Discord message event
+client.on('message', message => {
+    if (currentChannel && currentChannel.id == message.channel.id) {
+        pushmessage(message)
     }
-    $('#customCSS').text(currentTheme.customCSS)
-}
+    overflowBottom()
+})
 
-// Add title bar
+// DOM ScrollHeight updates after a picture is loaded, so scroll to bottom
+//!Needs to check if user was scrolled to bottom
+$('img').on('load', () => {
+    overflowBottom()
+})
+
+// Document ready event
 document.addEventListener("DOMContentLoaded", function () {
+    // Load theme
     loadTheme()
+
+    // Make titlebar
     const electronTitlebarWindows = require('electron-titlebar-windows');
     const titlebar = new electronTitlebarWindows({
         color: currentTheme.windowFeatures["controls.color"],
         backgroundColor: currentTheme.windowFeatures["controls.background"],
         draggable: false
     })
+    // Show titlebar
     titlebar.appendTo();
 
     // Make title bar buttons work
@@ -64,17 +79,67 @@ document.addEventListener("DOMContentLoaded", function () {
         remote.getCurrentWindow().minimize()
     });
 
-    $('textarea.message').keyup(e => {
-        if (e.code == 'Enter') {
+    // Bind enter key to send message using mousetrap
+    Mousetrap.bind("enter", () => {
+        if ($('textarea.message').is(':focus')) {
             sendMsg()
         }
     })
 
+    // Bind ctrl+t to open commander
+    Mousetrap.bind("ctrl+t", () => {
+        commander.showHide()
+    })
+
+    // Prevent body from scrolling
     setInterval(() => {
         window.scrollTo(0, 0)
     }, 1000);
+
+    //Commander
+    //!DEV
+    /* $('.commander h1').keyup(e => {
+        commander.keyup(e)
+    }) */
+    $('.commander h1').keydown(e => {
+        commander.keydown(e)
+    })
+    /* $('.commander h1').keypress(e => {
+        commander.keypress(e)
+    }) */
 })
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+//$       __                   _   _
+//$     / _|_   _ _ __    ___| |_(_) ___ _ __  ____
+//$    | |_| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
+//$   |  _| |_| | | | | (__| |_| | (_) | | | \__ \
+//$  |_|  \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
+
+
+// Function used to replace currentTheme with the one selected in config.js
+function loadTheme() {
+    currentTheme = config.themes.find(c => c.name == config.currentTheme);
+    for (var key in currentTheme.customColors) {
+        $('body').css(`--${key.replace(/\./g, "-")}`, currentTheme.customColors[key])
+    }
+    $('#customCSS').text(currentTheme.customCSS)
+    $('head').append(`<link rel="stylesheet" href="${currentTheme.windowFeatures['code.syntaxhighlighting']}">`)
+}
+
+// Function used to switch to another guild
 function switchGuild(id) {
     if (currentGuild == null) {
         anime({
@@ -109,6 +174,11 @@ function switchGuild(id) {
         sorted.push(...temp1)
     }
 
+    var nocat = channels.filter(c => c.parentID == undefined)
+    nocat = nocat.sort((a, b) => a.calculatedPosition - b.calculatedPosition)
+
+    sorted.unshift(...nocat)
+
     for (let i = 0; i < sorted.length; i++) {
         if (sorted[i].type == "voice") {
             html += `<div class="channel voice channel-${sorted[i].id}" onclick="switchChannel(${sorted[i].id})">\n<i class="material-icons type">volume_up</i>\n<span class="name">${sorted[i].name}</span>\n</div>`
@@ -121,6 +191,20 @@ function switchGuild(id) {
     $('.channellist').html(html)
 }
 
+// Function to update the current status ui (! Not for updating your status on discord)
+function switchStatus(status) {
+    if (status == "online") {
+        $('.controls .user .profile .status').css('background', 'var(--status-online)')
+    } else if (status == "idle") {
+        $('.controls .user .profile .status').css('background', 'var(--status-idle)')
+    } else if (status == "dnd") {
+        $('.controls .user .profile .status').css('background', 'var(--status-dnd)')
+    } else if (status == "invisible") {
+        $('.controls .user .profile .status').css('background', 'var(--status-offline)')
+    }
+}
+
+// Function used to switch channels
 function switchChannel(id) {
     if (currentChannel == null) {
         anime({
@@ -162,12 +246,12 @@ function switchChannel(id) {
     }
 }
 
-function time(date) {
-    return `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`
-}
+// Return time in HH:MM format
+time = date => `${date.getHours().toString().padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`
 
-function statusCard(showHide){
-    if(showHide == true){
+// Show or hide the card ui to change your status
+function statusCard(showHide) {
+    if (showHide == true) {
         $('.statuscard').css('visibility', 'visible')
     }
     anime({
@@ -177,26 +261,30 @@ function statusCard(showHide){
         opacity: showHide ? [0, 1] : [1, 0],
         duration: showHide ? 600 : 300,
         complete: () => {
-            if(showHide == false){
+            if (showHide == false) {
                 $('.statuscard').css('visibility', 'hidden')
             }
         }
     })
 }
 
+// Function called when clicking on the div.shade element
 function shade() {
-    if(statuscard){
+    if (statuscard) {
         statusCard(false)
         $('.shade').removeClass('show')
+        commander.shade()
     }
 }
 
+// Function called when clicking on the user to change the status
 function user() {
     statusCard(true)
     $('.shade').addClass('show')
     statuscard = true
 }
 
+// Function called when clicking on a status option in the card ui
 function clientStatusSwitch(to) {
     status = to;
     client.user.setStatus(to);
@@ -204,6 +292,7 @@ function clientStatusSwitch(to) {
     switchStatus(status)
 }
 
+// Function used to push messages to the div.messages element
 function pushmessage(message, pop = false) {
     var text = toHTML(message.content, {
         embed: true,
@@ -219,10 +308,8 @@ function pushmessage(message, pop = false) {
             }
         }
     })
-    var color;
-    try {
-        color = message.member.displayHexColor
-    } catch {
+    var color = message.member.displayHexColor
+    if(color == "#000000" && message.member.highestRole == '@everyone'){
         color = currentTheme.windowFeatures["message.norolecolor"]
     }
     var attachments = '';
@@ -231,7 +318,7 @@ function pushmessage(message, pop = false) {
     } else if (message.attachments.array().length != 0 && message.attachments.array()[0].url.match(/.+(mp4|webm|mov)/g)) {
         attachments = `<br><video controls><source src="${attachments = message.attachments.array()[0].url}" type="video/${message.attachments.array()[0].url.match(/(mp4|webm|mov)$/g)[0]}"></video>`
     }
-    var send = `<div class="message message-${message.id}">\n<div class="profile" style="background: url('${message.author.avatarURL}'); background-size: contain;"></div>\n<span class="author"><b style="color: ${color}">${message.author.username}</b>@${time(message.createdAt)}</span>\n<span class="content">${text.replace(/\n/g, '<br>')}</span>${attachments}</div>`
+    var send = `<div class="message message-${message.id}">\n<div class="profile" style="background: url('${message.author.avatarURL}'); background-size: contain;"></div>\n<span class="author">${time(message.createdAt)} <b style="color: ${color}">${message.author.username}</b>:</span>\n<span class="content">${text.replace(/\n/g, '<br>')}</span>${attachments}</div>`
     if (pop) {
         $('.messages').html(`${send}${$('.messages').html()}`)
     } else {
@@ -239,6 +326,7 @@ function pushmessage(message, pop = false) {
     }
 }
 
+// Function to scroll to bottom on the current channel (div.messages)
 function overflowBottom() {
     var height = $('div.messages')[0].scrollHeight
     anime({
@@ -249,33 +337,13 @@ function overflowBottom() {
     })
 }
 
+// Function called when pressing enter in the message box
 function sendMsg() {
     var content = $('textarea.message').val();
     if (currentChannel.type == 'text' && content != '') {
         currentChannel.send(content.toString())
     }
-    $('textarea.message').val('');
-}
-
-client.on('message', message => {
-    if (currentChannel && currentChannel.id == message.channel.id) {
-        pushmessage(message)
-    }
-    overflowBottom()
-})
-
-$('img').on('load', () => {
-    overflowBottom()
-})
-
-function switchStatus(status) {
-    if (status == "online") {
-        $('.controls .user .profile .status').css('background', 'var(--status-online)')
-    } else if (status == "idle") {
-        $('.controls .user .profile .status').css('background', 'var(--status-idle)')
-    } else if (status == "dnd") {
-        $('.controls .user .profile .status').css('background', 'var(--status-dnd)')
-    } else if (status == "invisible") {
-        $('.controls .user .profile .status').css('background', 'var(--status-offline)')
-    }
+    setTimeout(() => {
+        $('textarea.message').val('');
+    }, 0);
 }

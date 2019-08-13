@@ -3,7 +3,7 @@ body {
     background: var(--body-background);
     margin: 0;
     color: var(--body-color);
-    font-family: 'Google Sans';
+    font-family: 'Google Sans', sans-serif;
     overflow: hidden;
 }
 
@@ -18,7 +18,7 @@ h6 {
 }
 
 a {
-    font-family: 'Google Sans Bold';
+    font-family: 'Google Sans Bold', sans-serif;
     color: var(--url-color);
 }
 
@@ -138,7 +138,7 @@ a {
     top: 11px;
     left: 60px;
     font-size: 20px;
-    font-family: 'Google Sans Medium';
+    font-family: 'Google Sans Medium', sans-serif;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -150,7 +150,7 @@ a {
     top: 33px;
     left: 60px;
     font-size: 14px;
-    font-family: 'Google Sans Italic'
+    font-family: 'Google Sans Italic', sans-serif;
 }
 
 .controls .user {
@@ -185,7 +185,7 @@ a {
 
 .statuscard h1 {
     margin: 10px;
-    font-family: 'Google Sans Bold';
+    font-family: 'Google Sans Bold', sans-serif;
     text-align: center;
     user-select: none;
 }
@@ -312,7 +312,7 @@ ul {
     white-space: nowrap;
     overflow: hidden;
     width: 230px;
-    font-family: 'Google Sans Bold';
+    font-family: 'Google Sans Bold', sans-serif;
 }
 
 .channelname {
@@ -381,7 +381,7 @@ ul {
 .seperator .name {
     margin-left: 20px;
     font-size: 12pt;
-    font-family: 'Google Sans Bold';
+    font-family: 'Google Sans Bold', sans-serif;
     color: var(--channels-seperators-color);
     user-select: none;
     text-overflow: ellipsis;
@@ -400,7 +400,7 @@ ul {
     background-color: var(--channel-messagebar-background);
     color: var(--body-color);
     border: 0;
-    font-family: 'Google Sans';
+    font-family: 'Google Sans', sans-serif;
     font-size: 14pt;
     resize: none;
     height: 30px;
@@ -429,8 +429,12 @@ div.message:last-child {
     margin-bottom: 25px
 }
 
+div.message:first-child {
+    margin-top: 25px
+}
+
 .message .author {
-    font-family: 'Google Sans Bold';
+    font-family: 'Google Sans Bold', sans-serif;
     font-size: 16px;
 }
 
@@ -443,9 +447,12 @@ div.message:last-child {
     border-radius: 8px;
 }
 
-code.hljs {
+.content code.hljs {
     border-radius: 5px;
     font-family: 'Fira Code Medium', monospace;
+    background: var(--codeblock-background);
+    color: var(--codeblock-color);
+    display: inline-block;
 }
 
 .content code {
@@ -465,4 +472,32 @@ code.hljs {
 img,
 video {
     max-width: 100%;
+}
+
+.commander {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 150px;
+    left: 50vw;
+    width: 650px;
+    height: 100px;
+    background: var(--commander-background);
+    border-radius: 15px;
+    z-index: 50;
+    box-shadow: 0px 15px 30px -10px var(--commander-shadowcolor);
+}
+
+.commander h1 {
+    font-size: 36px;
+    font-family: 'Fira Code Medium', monospace;
+    margin: 27.5px;
+    width: 595px;
+    overflow-x: scroll;
+    white-space: nowrap;
+}
+
+.commander h1::after {
+    content: var(--autocomplete);
+    color: #fff3;
+    font-family: 'Fira Code', monospace;
 }

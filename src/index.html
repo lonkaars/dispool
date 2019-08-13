@@ -6,7 +6,7 @@
     <title>dispool</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <!-- <hightlight.js> -->
-    <link rel="stylesheet" href="./node_modules/highlight.js/styles/horizon.css">
+    <link rel="stylesheet" href="./node_modules/highlight.js/styles/atom-one-dark.css">
     <script src="./node_modules/highlight.js/lib/highlight.js"></script>
     <script>
         hljs.initHighlightingOnLoad();
@@ -21,8 +21,9 @@
             module = undefined;
         }
     </script>
-    <script src='https://cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+    <script src='../lib/anime.min.js'></script>
+    <script src='../lib/jquery.min.js'></script>
+    <script src='../lib/mousetrap.min.js'></script>
     <script>
         if (window.module) module = window.module;
     </script>
@@ -32,6 +33,9 @@
 
 <body>
     <div class="shade" onclick="shade()"></div>
+    <div class="commander">
+        <h1 class="command" contenteditable="true" tabindex="-1"></h1>
+    </div>
     <div class="servers posabs"></div>
     <div class="sidebar posabs">
         <div class="currentguild posabs"></div>
@@ -70,7 +74,7 @@
                     <div class="discriminator"></div>
                 </div>
             </div>
-            <div class="settings">
+            <div class="settings" onclick="require('electron').shell.openItem(`${__dirname}\\config.js`)">
                 <i class="material-icons">settings</i>
             </div>
         </div>
@@ -79,7 +83,7 @@
         <div class="channelbar posabs"></div>
         <div class="messages posabs"></div>
         <div class="typingbar posabs">
-            <textarea placeholder="Type a message..." class="message"></textarea>
+            <textarea placeholder="Type a message..." class="message mousetrap" tabindex="-1"></textarea>
         </div>
     </div>
 </body>

@@ -1,0 +1,12 @@
+[
+    "mute",
+    "unmute",
+    "deafen",
+    "undeafen",
+    "settings",
+    "status",
+    "status dnd",
+    "status idle",
+    "status online",
+    "status invis"
+]

@@ -1,5 +1,7 @@
-node_modules
-build
+node_modules/
 config.js
 package-lock.json
-test
+test/
+build/
+.vscode/
+todo.todo

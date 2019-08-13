@@ -9,8 +9,14 @@ module.exports = {
     // Change something about your current theme
 
     showUnresolvableEmoji: false,
+    // If an emoji is unresolvable and this setting is set to true,
+    // it replaces that emoji with <unresolvable emoji>, if it's set
+    // to false, it just hides the emoji
 
-    currentTheme: "Dispool",
+    debug: false,
+    // Open the inspector on start and make the window a little bigger
+
+    currentTheme: "Horizon",
 
     themes: [{
         name: "Horizon",
@@ -34,6 +40,8 @@ module.exports = {
             "statuscard.option.background.hover": "#2e303e",
             "shade.background": "#0003",
             "channels.seperators.color": "#fffd",
+            "codeblock.background": "#1c1e26",
+            "codeblock.color": "#bbb",
             "code.background": "#1c1e26",
             "code.color": "#bbb",
             "mention.background": "#08f3",
@@ -49,11 +57,14 @@ module.exports = {
             "guildbar.channel.background.hover": "#464961",
             "userbar.background": "#1c1e26",
             "message.background": "#232530",
+            "commander.background": "#1a1c23",
+            "commander.shadowcolor": "#0008",
         },
         windowFeatures: {
             "controls.background": "#1c1e26",
             "controls.color": "#d7dae0",
-            "message.norolecolor": "#fff"
+            "message.norolecolor": "#fff",
+            "code.syntaxhighlighting": "../syntax/horizon.css"
         }
     }, {
         name: "Horizon Light",
@@ -64,6 +75,10 @@ module.exports = {
             .channel,
             .server {
                 box-shadow: 0px 3px 6px -2px #0003;
+            }
+
+            code.hljs {
+                border: 2px solid #F9CEC3;
             }
         `,
         customColors: {
@@ -83,6 +98,8 @@ module.exports = {
             "statuscard.option.background.hover": "#FDF0ED",
             "shade.background": "#0003",
             "channels.seperators.color": "#16161Cdd",
+            "codeblock.background": "#FADAD1",
+            "codeblock.color": "##16161C",
             "code.background": "#F9CEC3",
             "code.color": "#1A1C23",
             "mention.background": "#08f6",
@@ -102,7 +119,8 @@ module.exports = {
         windowFeatures: {
             "controls.background": "#FDF0ED",
             "controls.color": "#16161C",
-            "message.norolecolor": "#16161C"
+            "message.norolecolor": "#16161C",
+            "code.syntaxhighlighting": "../syntax/horizonlight.css"
         }
     }, {
         name: "Dispool",
@@ -144,6 +162,8 @@ module.exports = {
             "statuscard.option.background.hover": "#25282d",
             "shade.background": "#0003",
             "channels.seperators.color": "#8e9297",
+            "codeblock.background": "#2f3136",
+            "codeblock.color": "#fff",
             "code.background": "#2f3136",
             "code.color": "#fff",
             "mention.background": "#08f3",
@@ -163,7 +183,8 @@ module.exports = {
         windowFeatures: {
             "controls.background": "#36393f",
             "controls.color": "#fff",
-            "message.norolecolor": "#fff"
+            "message.norolecolor": "#fff",
+            "code.syntaxhighlighting": "./node_modules/highlight.js/styles/monokai-sublime.css"
         }
     }]
 }
