@@ -353,3 +353,10 @@ function sendMsg() {
         $('textarea.message').val('');
     }, 0);
 }
+
+// Function to send native notification
+function NativeNotification(content) {
+    new Notification('Dispool', {
+        body: content
+    })
+}
