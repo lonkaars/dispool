@@ -13,9 +13,9 @@ client.on('ready', () => {
     // Fill serverlist
     var servers = ""
     var guilds = client.guilds.array()
-    for (let i = 0; i < guilds.length; i++) {
-        servers += `<div ${config.showServerTooltips ? "title=\"" + guilds[i].name + "\"" : ""} class="server server-${guilds[i].id}" style="background: url('${guilds[i].iconURL}'); background-size: contain" onclick="switchGuild(${guilds[i].id})"></div>\n`
-    }
+    guilds.forEach(g => {
+        servers += `<div ${config.showServerTooltips ? "title=\"" + g.name + "\"" : ""} class="server server-${g.id}" style="background: url('${g.iconURL}'); background-size: contain" onclick="switchGuild(${g.id})"></div>\n`
+    });
     $('.servers').append(servers)
 
     // Bottom-left profile picture
@@ -107,6 +107,13 @@ document.addEventListener("DOMContentLoaded", function () {
     /* $('.commander h1').keypress(e => {
         commander.keypress(e)
     }) */
+
+    // Clickable links
+    $('body').on('click', '.message a', (event) => {
+        event.preventDefault();
+        let link = event.target.href;
+        require("electron").shell.openExternal(link);
+    });
 })
 
 
@@ -123,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 //$       __                   _   _
-//$     / _|_   _ _ __    ___| |_(_) ___ _ __  ____
+//$     / _|_   _ _ __    ___| |_(_) ___ _ __   ___
 //$    | |_| | | | '_ \ / __| __| |/ _ \| '_ \/ __|
 //$   |  _| |_| | | | | (__| |_| | (_) | | | \__ \
 //$  |_|  \__,_|_| |_|\___|\__|_|\___/|_| |_|___/
@@ -236,14 +243,13 @@ function switchChannel(id) {
             .then(messages => {
                 var arr = messages.array();
                 arr = arr.sort((a, b) => a.createdTimestamp - b.createdTimestamp);
-                for (let i = 0; i < arr.length; i++) {
-                    pushmessage(arr[i])
-                }
+                arr.forEach(i => pushmessage(i))
                 // scroll to bottom
                 overflowBottom()
             })
             .catch(console.error);
     }
+
 }
 
 // Return time in HH:MM format
@@ -309,7 +315,7 @@ function pushmessage(message, pop = false) {
         }
     })
     var color = message.member.displayHexColor
-    if(color == "#000000" && message.member.highestRole == '@everyone'){
+    if (color == "#000000" && message.member.highestRole == '@everyone') {
         color = currentTheme.windowFeatures["message.norolecolor"]
     }
     var attachments = '';

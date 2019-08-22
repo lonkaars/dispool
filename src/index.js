@@ -3,7 +3,7 @@ const {
     BrowserWindow
 } = require('electron')
 
-var config = require('./config.js');
+var config = require(`${__dirname}/config.js`);
 require('electron-reload')(__dirname);
 
 let win
@@ -20,7 +20,7 @@ function createWindow() {
         }
     })
 
-    win.loadFile('index.html')
+    win.loadFile(`${__dirname}/index.html`)
 
     win.on('closed', () => {
         win = null
