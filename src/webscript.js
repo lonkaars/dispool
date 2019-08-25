@@ -324,7 +324,7 @@ function pushmessage(message, pop = false) {
     } else if (message.attachments.array().length != 0 && message.attachments.array()[0].url.match(/.+(mp4|webm|mov)/g)) {
         attachments = `<br><video controls><source src="${attachments = message.attachments.array()[0].url}" type="video/${message.attachments.array()[0].url.match(/(mp4|webm|mov)$/g)[0]}"></video>`
     }
-    var send = `<div class="message message-${message.id}">\n<div class="profile" style="background: url('${message.author.avatarURL}'); background-size: contain;"></div>\n<span class="author">${time(message.createdAt)} <b style="color: ${color}">${message.author.username}</b>:</span>\n<span class="content">${text.replace(/\n/g, '<br>')}</span>${attachments}</div>`
+    var send = `<div class="message message-${message.id}">\n<div class="profile" style="background: url('${message.author.avatarURL}'); background-size: contain;"></div>\n<span class="author">${time(message.createdAt)} <b style="color: ${color}">${message.member.nickname ? message.member.nickname : message.author.username}</b>${message.author.bot ? " <div class=\"botTag\">bot</div>" : ""}:</span>\n<span class="content">${text.replace(/\n/g, '<br>')}</span>${attachments}</div>`
     if (pop) {
         $('.messages').html(`${send}${$('.messages').html()}`)
     } else {

@@ -436,15 +436,18 @@ div.message:first-child {
 .message .author {
     font-family: 'Google Sans Bold', sans-serif;
     font-size: 16px;
+    margin-left: 3px;
 }
 
 .message .profile {
     display: inline-block;
     width: 16px;
     height: 16px;
-    background: url('https://cdn.discordapp.com/attachments/402862138894581760/606430607416754186/avatar.png');
     background-size: contain;
     border-radius: 8px;
+    position: relative;
+    top: 2px;
+    left: 2px;
 }
 
 .content code.hljs {
@@ -501,4 +504,12 @@ video {
     content: var(--autocomplete);
     color: #fff3;
     font-family: 'Fira Code', monospace;
+}
+
+.botTag {
+    display: inline;
+    padding: 0px 3px;
+    background: var(--author-bottag-background);
+    color: var(--author-bottag-color);
+    border-radius: 3px;
 }
